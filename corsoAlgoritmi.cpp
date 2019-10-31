@@ -3,36 +3,33 @@
 #include <list>
 
 int lis(int sequence[], int size){
-  int l[size];
-  std::list<int> p;
-  for (int i = 0; i < size; ++i) {
-    l[i] = 0;
-  }
-  
-  l[1] = 1;
-  
-  int maxTot = 0;
-  
-  for (int i = 1; i < size; i++) {
-    int max = 0;
-    for (int j = 0; j <= i-1; j++) {
-      if(sequence[j]<sequence[i] && l[j] > max){
-	max = l[j];
-	l[i] = max + 1;
-      }      
+
+  // support array, at pos i will hold longest lis including i
+  int l[size]; 
+  int max_tot = 1;
+  l[0] = 1;
+
+  for(int i = 1; i < size; ++i)
+    {
+      int max = 0;
+
+      for(int j = 0; j < i; ++j)
+	{
+	  if(sequence[j] < sequence[i] && l[j] > max)
+	    {
+	      max = l[j];
+	      l[i] = 1 + max;
+	    }
+
+	  else
+	    l[i] = max;
+	}
+
+      if(l[i] > max_tot)
+	max_tot = l[i];
     }
 
-    if(l[i] > maxTot){
-      maxTot = l[i];
-      p.push_back(sequence[i]);
-    }
-
-  }
-
-  std::cout << "LIS: ";
-  for(auto x: p) {std::cout << x << " ";}
-  std::cout << std::endl;
-  return maxTot;
+  return max_tot;
 
 }
 
@@ -101,4 +98,16 @@ void print_hateville_solution(int set[], int size){
 
 }
 
+int glcs(int seq1[], int size1, int seq2[], int size2){
+
+    int rows = size1+1;
+    int columns = size2+1;
+    int matrix[rows][columns];
+
+    for(int i = 0; i < rows; ++i)
+      for(int j = 0; j < columns; ++j)
+	matrix[i][j] = 0;
+
+    return 0;
+}
   
