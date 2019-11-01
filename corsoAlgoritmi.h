@@ -1,6 +1,9 @@
 #ifndef corsoAlgoritmi_H
 #define corsoAlgoritmi_H
 
+// contains all algorithms show in class (Zandron)
+namespace corso{
+
 // longest increasing subsequence
 int lis(int sequence[], int size);
 
@@ -10,4 +13,5 @@ int lcs(int seq1[], int size1, int seq2[], int size2);
 // growing longest common subsequence
 int glcs(int seq1[], int size1, int seq2[], int size2);
 
+}
 #endif

@@ -2,6 +2,8 @@
 #include <iostream>
 #include <list>
 
+namespace corso{
+
 int lis(int sequence[], int size){
 
   // support array, at pos i will hold longest lis including i
@@ -93,5 +95,7 @@ int glcs(int seq1[], int size1, int seq2[], int size2){
     }
   
   return max_length;
+}
+
 }
   
