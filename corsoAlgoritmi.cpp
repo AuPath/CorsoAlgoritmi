@@ -57,14 +57,41 @@ int lcs(int seq1[], int size1, int seq2[], int size2){
 
 int glcs(int seq1[], int size1, int seq2[], int size2){
 
-    int rows = size1+1;
-    int columns = size2+1;
-    int matrix[rows][columns];
+  int columns = size1; // first string at columns
+  int rows = size2; // second string at rows
 
-    for(int i = 0; i < rows; ++i)
+  // at position i,j has the glcs of seq1 up to j and seq2 up to i
+  int matrix[rows][columns];
+  int max_length = 0;
+  
+  for(int i = 0; i < rows; ++i)
+    for(int j = 0; j < columns; ++j)
+      {
+	if(seq1[j] != seq2[i])
+	  matrix[i][j] = 0;
+	else
+	  {
+	    int max = 0;
+	    for(int a = 0; a <= i-1; ++a)
+	      for(int b = 0; b <= j-1; ++b)
+		if(matrix[a][b] > max && seq2[a] < seq2[i])
+		  max = matrix[a][b];
+
+	    matrix[i][j] = max + 1;
+	    
+	    if(matrix[i][j] > max_length)
+	      max_length = matrix[i][j];
+	  }	
+      }
+
+  std::cout << std::endl;
+  for(int i = 0; i < rows; ++i)
+    {
       for(int j = 0; j < columns; ++j)
-	matrix[i][j] = 0;
-
-    return 0;
+	std::cout << matrix[i][j] << " ";
+      std::cout << std::endl;
+    }
+  
+  return max_length;
 }
   

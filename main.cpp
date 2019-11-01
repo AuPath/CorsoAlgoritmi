@@ -8,11 +8,11 @@ int main()
   int array1[size1] = {1,2,3,4,5};
 
 
-  const int size2 = 5;
-  int array2[size2] = {1,2, 3, 4, 5};
+  const int size2 = 3;
+  int array2[size2] = {1,2,5};
   
-  std::cout << "lcs: " << lcs(array1,size1,array2,size2) << std::endl;
-
+  std::cout << "glcs: " << glcs(array1,size1,array2,size2) << std::endl;
+  
   return 0;
 }
 
