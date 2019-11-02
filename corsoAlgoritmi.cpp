@@ -1,10 +1,11 @@
 #include "corsoAlgoritmi.h"
 #include <iostream>
 #include <list>
+#include <cassert>
 
 namespace corso{
 
-int lis(int sequence[], int size){
+  int lis(int sequence[], int size){
 
   // support array, at pos i will hold longest lis including i
   int l[size]; 
@@ -25,8 +26,8 @@ int lis(int sequence[], int size){
   
   return max_length;
 }
-
-int lcs(int seq1[], int size1, int seq2[], int size2){
+  
+  int lcs(int seq1[], int size1, int seq2[], int size2){
   
   int rows = size1+1;
   int columns = size2+1;
@@ -50,7 +51,7 @@ int lcs(int seq1[], int size1, int seq2[], int size2){
   return matrix[rows-1][columns-1];
 }
 
-int glcs(int seq1[], int size1, int seq2[], int size2){
+  int glcs(int seq1[], int size1, int seq2[], int size2){
 
   int columns = size1; // first string at columns
   int rows = size2; // second string at rows
@@ -89,6 +90,52 @@ int glcs(int seq1[], int size1, int seq2[], int size2){
   
   return max_length;
 }
+  
+  int knapsack(int sackCapacity, char objects[], int oSize, int values[], int vSize, int weigth[], int wSize){
 
+    assert(oSize == vSize);
+    assert(vSize == wSize);
+    assert(sackCapacity >= 0);
+
+    // add 0 value in matrix
+    oSize = oSize + 1;
+    sackCapacity = sackCapacity + 1;
+
+    int matrix[oSize][sackCapacity];
+
+    // initialize matrix
+    for(int i = 0; i < oSize; ++i)
+      matrix[i][0] = 0;
+    for(int i = 0; i < sackCapacity; ++i)
+      matrix[0][i] = 0;
+
+    // access to values and weight has to be offset by -1 because we added a
+    // 0 row and column to the matrix
+
+    for(int i = 1; i < oSize; ++i)
+      for(int j = 1; j < sackCapacity; ++j)
+	if(j < weigth[i-1])
+	  matrix[i][j] = matrix[i-1][j];
+	else if (matrix[i-1][j] > (matrix[i-1][j - weigth[i-1]]) + values[i-1])
+	  matrix[i][j] = matrix[i-1][j];
+	else
+	  matrix[i][j] = matrix[i-1][j - weigth[i-1]] + values[i-1];
+
+
+
+    std::cout << "value matrix:" << std::endl;
+    for(int i = 0; i < oSize; ++i)
+      {
+	for(int j = 0; j < sackCapacity; ++j)
+	  std::cout << matrix[i][j] << " ";
+	std::cout << std::endl;	
+      }
+    
+    return matrix[oSize-1][sackCapacity-1];
+	
+  }
+
+  
+  
 }
   

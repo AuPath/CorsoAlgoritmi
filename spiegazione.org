@@ -126,4 +126,7 @@ int lis(int sequence[], int size){
 }
 #+END_SRC
 
+
 **** Longest common subsequence (LCS)
+
+** Programmazione greedy

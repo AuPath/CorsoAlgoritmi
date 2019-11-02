@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include "corsoAlgoritmi.h"
 #include "eserciziCorsoAlgoritmi.h"
@@ -5,15 +6,17 @@
 
 int main()
 {
-  const int size1 = 5;
-  int array1[size1] = {5,4,3,2,1};
-
-
-  const int size2 = 5;
-  int array2[size2] = {2,3,4,5,6};
+  const int sackCapacity = 11;
+  const int oSize = 5;
+  int values[oSize] = {1,6,28,22,18};
+  int weight[oSize] = {1,2,7,6,5};
     
-  std::cout << "LIS: " << corso::lis(array1, size1) << std::endl;
-  
-  return 0;
+  int knapSolution =
+      corso::knapsack(sackCapacity, nullptr, oSize, values
+		      , oSize, weight, oSize);
+
+  std::cout << "solution to knapsack: " << knapSolution << std::endl;
+
+          return 0;
 }
 
