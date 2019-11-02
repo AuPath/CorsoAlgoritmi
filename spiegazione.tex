@@ -1,4 +1,4 @@
-% Created 2019-11-02 sab 12:40
+% Created 2019-11-02 sab 19:26
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -26,16 +26,18 @@
  pdflang={English}}
 \begin{document}
 
+\setcounter{tocdepth}{10}
 \tableofcontents
 
+
 \section{ALGORITMI}
-\label{sec:org7bd27b3}
+\label{sec:org46a9a9f}
 
 \subsection{Programmazione dinamica}
-\label{sec:orge0c66d9}
+\label{sec:org9ffb2d3}
 
 \subsubsection{Introduzione}
-\label{sec:org639cb23}
+\label{sec:orgd3ed79b}
 
 L' idea è quella di non dover ripetere calcoli già fatti in precedenza, cosa che succede per 
 molto di frequente in un albero di chiamate ricorsive.
@@ -48,7 +50,7 @@ del problema originale.
 
 
 \subsubsection{Approccio al problema}
-\label{sec:org6d4d4ab}
+\label{sec:org192d00a}
 
 Cominciare definendo l' istanza del problema e la soluzione del problema in maniera formale.
 Può essere utile, ma non è obbligatorio, definire l' equazione di ricorrenza del problema.
@@ -62,17 +64,15 @@ posizione della struttura di supporto. Molto importante è definire se la soluzi
 
 
 \subsubsection{Algoritmi visti in classe}
-\label{sec:org30abaaf}
+\label{sec:org53577fd}
 
-\begin{enumerate}
-\item Longest increasing subsequence (LIS)
-\label{sec:orgc8e2147}
+\paragraph{Longest increasing subsequence (LIS)}
+\label{sec:orgdd80f07}
 
-\begin{enumerate}
-\item Definizione del problema
-\label{sec:orgf7e5ee8}
+\subparagraph{Definizione del problema}
+\label{sec:org49673c8}
 
-Avendo una sequenza \textbf{X} di lunghezza \textbf{n} con indice \textbf{I} = \{1,\ldots{},n\}, \\
+Avendo una sequenza \textbf{X} di lunghezza \textbf{n} con indice \textbf{I} = \{1,\ldots{},n\}, \newline
 una sottosequenza \textbf{Z} di \textbf{X} viene ritenuta valida se gli indici degli elementi
 di \textbf{X} che la compongono rispettano un ordine strettamente crescente.
 
@@ -100,8 +100,8 @@ La lunghezza l \(\in\) \textbf{N} della sottosequenza \textbf{Z} definita sopra.
 \end{itemize}
 
 
-\item Pseudocodice con spiegazione
-\label{sec:org4a01437}
+\subparagraph{Pseudocodice con spiegazione}
+\label{sec:orgc0df957}
 
 Come struttura di supporto viene utilizzato un array \textbf{L} di dimensione uguale alla
 lunghezza \textbf{n} della sequenza \textbf{S}.
@@ -146,8 +146,8 @@ return max_tot
 \end{verbatim}
 
 
-\item Implementazione C++
-\label{sec:org1e1b95f}
+\subparagraph{Implementazione C++}
+\label{sec:org8692809}
 
 \begin{verbatim}
 int lis(int sequence[], int size){
@@ -172,9 +172,20 @@ int lis(int sequence[], int size){
   return max_length;
 }
 \end{verbatim}
-\end{enumerate}
 
-\item Longest common subsequence (LCS)
-\label{sec:org136425d}
-\end{enumerate}
+
+\paragraph{Longest common subsequence (LCS)}
+\label{sec:org1ff23b5}
+
+
+\paragraph{Knapsack problem}
+\label{sec:org5c06891}
+
+\subparagraph{Definizione del problema}
+\label{sec:org5974641}
+Abbiamo un knapsack (zaino) con una capacità \textbf{L} \(\in\) \textbf{N} \\
+
+
+\subsection{Programmazione greedy}
+\label{sec:orge09fda3}
 \end{document}

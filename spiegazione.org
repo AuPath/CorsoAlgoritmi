@@ -1,3 +1,5 @@
+#+STARTUP: entitiespretty
+#+OPTIONS: H:10
 #+OPTIONS: toc:10
 
 * ALGORITMI
@@ -35,29 +37,30 @@
      
 ***** Definizione del problema
 
-     Avendo una sequenza *X* di lunghezza *n* con indice *I* = {1,...,n}, \\
+     Avendo una sequenza *X* di lunghezza *n* con indice *I* = {1,...,n}, \newline
      una sottosequenza *Z* di *X* viene ritenuta valida se gli indici degli elementi
-     di *X* che la compongono rispettano un ordine strettamente crescente.
+     di *X* che la compongono rispettano un ordine strettamente crescente. \newline
 
-     Esempio: \\
-     *X* = < a, b, c, d >  *Z* = < a, c , d > è valida \\
-     *X* = < a, b, c, d >  *Z* = < d, a, b, c > non è valida \\
+     Esempio:
+     *X* = < a, b, c, d >  *Z* = < a, c , d > è valida \newline
+     *X* = < a, b, c, d >  *Z* = < d, a, b, c > non è valida \newline
 
-     Vogliamo trovare la più lunga sottosequenza dove ogni elemento è maggiore del precedente (LIS).\\
-     L' algoritmo visto in classe si limita a trovare la lunghezza della LIS. \\
+     Vogliamo trovare la più lunga sottosequenza dove ogni elemento è maggiore del precedente (LIS).\newline
+     L' algoritmo visto in classe si limita a trovare la lunghezza della LIS. \newline
      
-     Istanza del problema: \\
-     Una sequenza *X* di elementi, la lunghezza di *X* è *n* \\
+     Istanza del problema: \newline
+     Una sequenza *X* di elementi, la lunghezza di *X* è *n*
 
-     Soluzione del problema: \\
-     - Se voglio la LIS: \\ 
+     Soluzione del problema: \newline
+     - Se voglio la LIS: \newline 
        Una permutazione di *Z* di *X* tale che:
        1. Tra tutte le permutazioni possibili di *X* (insieme delle parti) *Z* risulta la sottosequenza (deve rispettare le proprietà di una sottosequenza) quello con lunghezza (cardinalità) massima. 
        2. Gli elementi della sottosequenza "ottima" *Z* devono essere ordinati in senso strettamente crescente.
 
-     - Se voglio la lunghezza della LIS: \\
+     - Se voglio la lunghezza della LIS: \newline
        La lunghezza l \in *N* della sottosequenza *Z* definita sopra.
 	 
+
 
 ***** Pseudocodice con spiegazione
 
@@ -67,9 +70,9 @@
       carattere *i* della sequenza *S* con S[i] compreso.
 
       Genericamente L[i] può avere valore:
-      - L[i] = 1 se i = 1\\
+      - L[i] = 1 se i = 1\newline
 	cioè al primo elemento della sequenza la lunghezza massima possibile è 1.
-      - L[i] = 1 + MAX{L[i]} se 1 \leq j \leq i-1 AND S[j] < S[i] \\
+      - L[i] = 1 + MAX{L[i]} se 1 \leq j \leq i-1 AND S[j] < S[i] \newline
 	cioè se l'elemento *i* di *S* risulta maggiore dei precedenti il valore in *L* alla posizione *i*
 	è uguale al valore massimo precedentemente trovato + 1, appunto perchè è stato possibile aggiungere
 	un nuovo elemento alla LIS fino a *i*.
@@ -83,7 +86,7 @@
 	 LIS massima trovata fino ad ora, se è maggiore aggiorno il valore massimo.
 
       Soluzione vista a lezione:
-      #+BEGIN_SRC 
+      #+BEGIN_SRC C++ -n 
       int LIS (S[1,...,n])
       L[1] = 1;
       max_tot = 1;
@@ -102,9 +105,8 @@
 
 ***** Implementazione C++
 
-#+BEGIN_SRC C++
+#+BEGIN_SRC C++ -n
 int lis(int sequence[], int size){
-
   // support array, at pos i will hold longest lis including i
   int l[size]; 
   int max_length = 1;
@@ -129,4 +131,102 @@ int lis(int sequence[], int size){
 
 **** Longest common subsequence (LCS)
 
+
+**** Knapsack problem
+
+***** Definizione del problema 
+      
+      Abbiamo un knapsack (zaino) con una capacità *L* \in *N*.
+      Abbiamo un insieme di oggetti *O* di lunghezza *n* \in *N*.
+      Ad ogni oggetto è associato un Valore  v_{i} \in *V* la cui lunghezza è *n*.
+      Ad ogni oggetto è associato un Peso w_{i} \in *W* la cui lunghezza è *n*.
+      Definisco una funzione valore(X) {1,...,n} \rarr N che mi restituisce il valore totale di un insieme.
+      La soluzione *S* \sube *O* con \sum w_{i} con 1 \le i \le L tale che valore(*S*) = MAX(valore(\weierp(O)))    
+      
+      L'algoritmo visto in classe ritorna il valore massimo ottenibile.
+
+
+
+***** Pseudocodice e spiegazione
+      
+      Come struttura di supporto viene utilizzata una matrice di dimensione *n+1* x *L+1*.
+      Viene aggiunto 1 perchè rappresenteremo anche l'oggetto e la capacità 0.
+      
+      Su ogni colonna mettiamo tutti i numeri da 0 a *L*.
+      Su ogni riga tutti i numeri da 0 a *n*.
+      Alla posizione [i][j] troviamo il massimo valore ottenibile prendendo i oggetti avendo capacità j.
+      
+      Inizializzo la matrice iniziale
+      
+      #+BEGIN_SRC C++ -n
+      for i=0 to n
+        OPT[i][0] = 0
+      for j=0 to L
+        OPT[0][j] = 0
+
+      for i=1 to n
+        for j = 1 to L
+          if j < W[i]
+	    OPT[i][j] = OPT[i-1][j]
+          else if OPT[i-1][j] > ( OPT[i-1][j - W[i]] + V[i] )
+	    OPT[i][j] = OPT[i-1][j]
+          else
+	    OPT[i][j] = OPT[i-1][j - W[i] + V[i]
+
+     return OPT[n][L]
+      #+END_SRC
+
+
+***** Implementazione C++
+      
+      #+BEGIN_SRC C++ -n
+int knapsack(int sackCapacity, char objects[], int oSize,
+int values[], int vSize, int weigth[], int wSize){
+
+assert(oSize == vSize);
+assert(vSize == wSize);
+assert(sackCapacity >= 0);
+
+// add 0 value in matrix
+oSize = oSize + 1;
+sackCapacity = sackCapacity + 1;
+int matrix[oSize][sackCapacity];
+    
+// initialize matrix
+for(int i = 0; i < oSize; ++i)
+   matrix[i][0] = 0;
+for(int i = 0; i < sackCapacity; ++i)
+   matrix[0][i] = 0;
+
+// access to values and weight has to be offset by -1 because we added a
+// 0 row and column to the matrix
+
+for(int i = 1; i < oSize; ++i)
+  for(int j = 1; j < sackCapacity; ++j)
+    if(j < weigth[i-1])
+      matrix[i][j] = matrix[i-1][j];
+    else if (matrix[i-1][j] > (matrix[i-1][j - weigth[i-1]]) + values[i-1])
+      matrix[i][j] = matrix[i-1][j];
+    else
+      matrix[i][j] = matrix[i-1][j - weigth[i-1]] + values[i-1];
+
+    std::cout << "value matrix:" << std::endl;
+    for(int i = 0; i < oSize; ++i)
+      {
+	for(int j = 0; j < sackCapacity; ++j)
+	  std::cout << matrix[i][j] << " ";
+	std::cout << std::endl;	
+      }
+    
+    return matrix[oSize-1][sackCapacity-1];
+	
+  }
+      #+END_SRC
+
+
 ** Programmazione greedy
+
+
+
+
+
