@@ -1,4 +1,4 @@
-% Created 2019-11-02 sab 11:38
+% Created 2019-11-02 sab 12:40
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -29,13 +29,13 @@
 \tableofcontents
 
 \section{ALGORITMI}
-\label{sec:org35921fc}
+\label{sec:org7bd27b3}
 
 \subsection{Programmazione dinamica}
-\label{sec:orgdb30e7d}
+\label{sec:orge0c66d9}
 
 \subsubsection{Introduzione}
-\label{sec:orgcecd278}
+\label{sec:org639cb23}
 
 L' idea è quella di non dover ripetere calcoli già fatti in precedenza, cosa che succede per 
 molto di frequente in un albero di chiamate ricorsive.
@@ -46,8 +46,9 @@ risolvibili per "piccole" istanze del problema, praticamente l'analogo del caso 
 Combinando soluzioni intermedie piu semplici da risolvere si ottiene la soluzione dell' istanza completa (e più complessa)
 del problema originale.
 
+
 \subsubsection{Approccio al problema}
-\label{sec:orgb81fc97}
+\label{sec:org6d4d4ab}
 
 Cominciare definendo l' istanza del problema e la soluzione del problema in maniera formale.
 Può essere utile, ma non è obbligatorio, definire l' equazione di ricorrenza del problema.
@@ -59,12 +60,17 @@ la struttura contiente ad una particolare posizione.
 Generalmente contiene la soluzione fino a il/i carattere/i della sequenza/sequenze corrispondente alla
 posizione della struttura di supporto. Molto importante è definire se la soluzione include o meno il carattere.
 
+
 \subsubsection{Algoritmi visti in classe}
-\label{sec:orgadd01b4}
+\label{sec:org30abaaf}
 
 \begin{enumerate}
 \item Longest increasing subsequence (LIS)
-\label{sec:org6c642d1}
+\label{sec:orgc8e2147}
+
+\begin{enumerate}
+\item Definizione del problema
+\label{sec:orgf7e5ee8}
 
 Avendo una sequenza \textbf{X} di lunghezza \textbf{n} con indice \textbf{I} = \{1,\ldots{},n\}, \\
 una sottosequenza \textbf{Z} di \textbf{X} viene ritenuta valida se gli indici degli elementi
@@ -82,11 +88,93 @@ Una sequenza \textbf{X} di elementi, la lunghezza di \textbf{X} è \textbf{n} \\
 
 Soluzione del problema: \\
 \begin{itemize}
-\item Se voglio la LIS:
-Una permutazione di \textbf{Z} di \textbf{X} tale che: \\
+\item Se voglio la LIS: \\
+Una permutazione di \textbf{Z} di \textbf{X} tale che:
 \begin{enumerate}
-\item Tra tutte le permutazioni \mathcal{P}
+\item Tra tutte le permutazioni possibili di \textbf{X} (insieme delle parti) \textbf{Z} risulta la sottosequenza (deve rispettare le proprietà di una sottosequenza) quello con lunghezza (cardinalità) massima.
+\item Gli elementi della sottosequenza "ottima" \textbf{Z} devono essere ordinati in senso strettamente crescente.
 \end{enumerate}
+
+\item Se voglio la lunghezza della LIS: \\
+La lunghezza l \(\in\) \textbf{N} della sottosequenza \textbf{Z} definita sopra.
 \end{itemize}
+
+
+\item Pseudocodice con spiegazione
+\label{sec:org4a01437}
+
+Come struttura di supporto viene utilizzato un array \textbf{L} di dimensione uguale alla
+lunghezza \textbf{n} della sequenza \textbf{S}.
+Alla posizione \textbf{i} il vettore \textbf{L} contiene la lunghezza massima della LIS fino al
+carattere \textbf{i} della sequenza \textbf{S} con S[i] compreso.
+
+Genericamente L[i] può avere valore:
+\begin{itemize}
+\item L[i] = 1 se i = 1\\
+cioè al primo elemento della sequenza la lunghezza massima possibile è 1.
+\item L[i] = 1 + MAX\{L[i]\} se 1 \(\le\) j \(\le\) i-1 AND S[j] < S[i] \\
+cioè se l'elemento \textbf{i} di \textbf{S} risulta maggiore dei precedenti il valore in \textbf{L} alla posizione \textbf{i}
+è uguale al valore massimo precedentemente trovato + 1, appunto perchè è stato possibile aggiungere
+un nuovo elemento alla LIS fino a \textbf{i}.
+\end{itemize}
+
+Praticamente quello che l' algoritmo fa è:
+\begin{enumerate}
+\item imposto a 1 la lunghezza massima della LIS fino a \textbf{i} = 1.
+\item scorro S e per ogni elemento controllo se è maggiore dell' elemento precedente che mi permette
+di ottenere la LIS massima, questo dato lo trovo in \textbf{L}.
+\item Se non trovo nessun elemento precedente L[i] sarà 1, se lo trovo sarà max + 1.
+\item Dopo aver controllato ogni elemento controllo se la LIS terminante con lui ha lunghezza maggiore della
+LIS massima trovata fino ad ora, se è maggiore aggiorno il valore massimo.
+\end{enumerate}
+
+Soluzione vista a lezione:
+\begin{verbatim}
+int LIS (S[1,...,n])
+L[1] = 1;
+max_tot = 1;
+for i = 2 to n
+  max = 0;
+  for j = 1 to i-1
+  if S[j] < S[i] AND L[j] > max
+    max = L[J]
+  L[i] = 1 + max;
+  if L[i] > max_tot
+    max_tot = L[i]
+
+return max_tot
+\end{verbatim}
+
+
+\item Implementazione C++
+\label{sec:org1e1b95f}
+
+\begin{verbatim}
+int lis(int sequence[], int size){
+
+  // support array, at pos i will hold longest lis including i
+  int l[size]; 
+  int max_length = 1;
+  l[0] = 1;
+
+  for(int i = 1; i < size; ++i)
+    {
+      int max = 0;
+      for(int j = 0; j <= i-1; ++j)
+	if(sequence[i] > sequence[j] && l[j] > max)
+	  max = l[j];
+
+      l[i] = 1 + max;
+      if(l[i] > max_length)
+	max_length = l[i];
+    }
+
+  return max_length;
+}
+\end{verbatim}
+\end{enumerate}
+
+\item Longest common subsequence (LCS)
+\label{sec:org136425d}
 \end{enumerate}
 \end{document}

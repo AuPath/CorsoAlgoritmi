@@ -13,6 +13,7 @@
    Combinando soluzioni intermedie piu semplici da risolvere si ottiene la soluzione dell' istanza completa (e più complessa)
    del problema originale.
 
+
 *** Approccio al problema
     
     Cominciare definendo l' istanza del problema e la soluzione del problema in maniera formale.
@@ -25,10 +26,13 @@
     Generalmente contiene la soluzione fino a il/i carattere/i della sequenza/sequenze corrispondente alla
     posizione della struttura di supporto. Molto importante è definire se la soluzione include o meno il carattere.
     
-*** Algoritmi visti in classe
 
+*** Algoritmi visti in classe
+    
 **** Longest increasing subsequence (LIS)
      
+***** Definizione del problema
+
      Avendo una sequenza *X* di lunghezza *n* con indice *I* = {1,...,n}, \\
      una sottosequenza *Z* di *X* viene ritenuta valida se gli indici degli elementi
      di *X* che la compongono rispettano un ordine strettamente crescente.
@@ -44,15 +48,80 @@
      Una sequenza *X* di elementi, la lunghezza di *X* è *n* \\
 
      Soluzione del problema: \\
-     - Se voglio la LIS:
-       Una permutazione di *Z* di *X* tale che: \\
-       - Tra tutte le permutazioni possibili di *X* (insieme delle parti) *Z* risulta la sottosequenza (deve rispettare le proprietà di una sottosequenza) quello con lunghezza (cardinalità) massima. 
-       - Gli elementi della sottosequenza "ottima" *Z* devono essere ordinati in senso strettamente crescente.
+     - Se voglio la LIS: \\ 
+       Una permutazione di *Z* di *X* tale che:
+       1. Tra tutte le permutazioni possibili di *X* (insieme delle parti) *Z* risulta la sottosequenza (deve rispettare le proprietà di una sottosequenza) quello con lunghezza (cardinalità) massima. 
+       2. Gli elementi della sottosequenza "ottima" *Z* devono essere ordinati in senso strettamente crescente.
+
+     - Se voglio la lunghezza della LIS: \\
+       La lunghezza l \in *N* della sottosequenza *Z* definita sopra.
 	 
-     
-     
 
-     
-     
-    
+***** Pseudocodice con spiegazione
 
+      Come struttura di supporto viene utilizzato un array *L* di dimensione uguale alla
+      lunghezza *n* della sequenza *S*.
+      Alla posizione *i* il vettore *L* contiene la lunghezza massima della LIS fino al
+      carattere *i* della sequenza *S* con S[i] compreso.
+
+      Genericamente L[i] può avere valore:
+      - L[i] = 1 se i = 1\\
+	cioè al primo elemento della sequenza la lunghezza massima possibile è 1.
+      - L[i] = 1 + MAX{L[i]} se 1 \leq j \leq i-1 AND S[j] < S[i] \\
+	cioè se l'elemento *i* di *S* risulta maggiore dei precedenti il valore in *L* alla posizione *i*
+	è uguale al valore massimo precedentemente trovato + 1, appunto perchè è stato possibile aggiungere
+	un nuovo elemento alla LIS fino a *i*.
+	
+      Praticamente quello che l' algoritmo fa è:
+      1. imposto a 1 la lunghezza massima della LIS fino a *i* = 1.
+      2. scorro S e per ogni elemento controllo se è maggiore dell' elemento precedente che mi permette
+	 di ottenere la LIS massima, questo dato lo trovo in *L*. 
+      3. Se non trovo nessun elemento precedente L[i] sarà 1, se lo trovo sarà max + 1.
+      4. Dopo aver controllato ogni elemento controllo se la LIS terminante con lui ha lunghezza maggiore della
+	 LIS massima trovata fino ad ora, se è maggiore aggiorno il valore massimo.
+
+      Soluzione vista a lezione:
+      #+BEGIN_SRC 
+      int LIS (S[1,...,n])
+      L[1] = 1;
+      max_tot = 1;
+      for i = 2 to n
+        max = 0;
+	for j = 1 to i-1
+	if S[j] < S[i] AND L[j] > max
+	  max = L[J]
+      	L[i] = 1 + max;
+	if L[i] > max_tot
+	  max_tot = L[i]
+
+      return max_tot
+      #+END_SRC
+
+
+***** Implementazione C++
+
+#+BEGIN_SRC C++
+int lis(int sequence[], int size){
+
+  // support array, at pos i will hold longest lis including i
+  int l[size]; 
+  int max_length = 1;
+  l[0] = 1;
+
+  for(int i = 1; i < size; ++i)
+    {
+      int max = 0;
+      for(int j = 0; j <= i-1; ++j)
+	if(sequence[i] > sequence[j] && l[j] > max)
+	  max = l[j];
+
+      l[i] = 1 + max;
+      if(l[i] > max_length)
+	max_length = l[i];
+    }
+  
+  return max_length;
+}
+#+END_SRC
+
+**** Longest common subsequence (LCS)

@@ -37,6 +37,8 @@
 .ccls-cache/
 
 # Emacs autosaves
-
 *.*~
 *.*#
+
+# Org mode
+*.tex
