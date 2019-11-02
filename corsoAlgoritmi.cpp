@@ -8,29 +8,22 @@ int lis(int sequence[], int size){
 
   // support array, at pos i will hold longest lis including i
   int l[size]; 
-  int max_tot = 1;
+  int max_length = 1;
   l[0] = 1;
 
   for(int i = 1; i < size; ++i)
     {
-      int max = 0;      
-      for(int j = 0; j < i; ++j)
-	{
-	  if(sequence[j] < sequence[i] && l[j] > max)
-	    {
-	      max = l[j];
-	      l[i] = 1 + max;
-	    }
-	  else
-	    l[i] = max;
-	}
-      
-      if(l[i] > max_tot)
-	max_tot = l[i];
+      int max = 0;
+      for(int j = 0; j <= i-1; ++j)
+	if(sequence[i] > sequence[j] && l[j] > max)
+	  max = l[j];
+
+      l[i] = 1 + max;
+      if(l[i] > max_length)
+	max_length = l[i];
     }
-
-  return max_tot;
-
+  
+  return max_length;
 }
 
 int lcs(int seq1[], int size1, int seq2[], int size2){

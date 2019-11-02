@@ -1,0 +1,92 @@
+% Created 2019-11-02 sab 11:38
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Aurelio}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Aurelio},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.3 (Org mode 9.1.9)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\section{ALGORITMI}
+\label{sec:org35921fc}
+
+\subsection{Programmazione dinamica}
+\label{sec:orgdb30e7d}
+
+\subsubsection{Introduzione}
+\label{sec:orgcecd278}
+
+L' idea è quella di non dover ripetere calcoli già fatti in precedenza, cosa che succede per 
+molto di frequente in un albero di chiamate ricorsive.
+Una soluzione è quella di "salvare" soluzioni a problemi intermedi in una struttura di supporto
+è di controllare se un particolare calcolo è già stato fatto.
+I problemi risolti dalla programmazione dinamica hanno la caratteristica di essere facilmente
+risolvibili per "piccole" istanze del problema, praticamente l'analogo del caso base in una soluzione ricorsiva.
+Combinando soluzioni intermedie piu semplici da risolvere si ottiene la soluzione dell' istanza completa (e più complessa)
+del problema originale.
+
+\subsubsection{Approccio al problema}
+\label{sec:orgb81fc97}
+
+Cominciare definendo l' istanza del problema e la soluzione del problema in maniera formale.
+Può essere utile, ma non è obbligatorio, definire l' equazione di ricorrenza del problema.
+Anche se in seguito si utilizzerà un approccio di programmazione dinamica questo passaggio ci permette di 
+individuare il caso base e lo step per ipoteticamente raggiungere la soluzione.
+
+Una volta individuata la struttura di supporto più appropriata per il problema definire cosa
+la struttura contiente ad una particolare posizione.
+Generalmente contiene la soluzione fino a il/i carattere/i della sequenza/sequenze corrispondente alla
+posizione della struttura di supporto. Molto importante è definire se la soluzione include o meno il carattere.
+
+\subsubsection{Algoritmi visti in classe}
+\label{sec:orgadd01b4}
+
+\begin{enumerate}
+\item Longest increasing subsequence (LIS)
+\label{sec:org6c642d1}
+
+Avendo una sequenza \textbf{X} di lunghezza \textbf{n} con indice \textbf{I} = \{1,\ldots{},n\}, \\
+una sottosequenza \textbf{Z} di \textbf{X} viene ritenuta valida se gli indici degli elementi
+di \textbf{X} che la compongono rispettano un ordine strettamente crescente.
+
+Esempio: \\
+\textbf{X} = < a, b, c, d >  \textbf{Z} = < a, c , d > è valida \\
+\textbf{X} = < a, b, c, d >  \textbf{Z} = < d, a, b, c > non è valida \\
+
+Vogliamo trovare la più lunga sottosequenza dove ogni elemento è maggiore del precedente (LIS).\\
+L' algoritmo visto in classe si limita a trovare la lunghezza della LIS. \\
+
+Istanza del problema: \\
+Una sequenza \textbf{X} di elementi, la lunghezza di \textbf{X} è \textbf{n} \\
+
+Soluzione del problema: \\
+\begin{itemize}
+\item Se voglio la LIS:
+Una permutazione di \textbf{Z} di \textbf{X} tale che: \\
+\begin{enumerate}
+\item Tra tutte le permutazioni \mathcal{P}
+\end{enumerate}
+\end{itemize}
+\end{enumerate}
+\end{document}
