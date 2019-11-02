@@ -1,3 +1,5 @@
+#+OPTIONS: toc:10
+
 * ALGORITMI
 
 ** Programmazione dinamica
