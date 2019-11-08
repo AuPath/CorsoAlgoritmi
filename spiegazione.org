@@ -130,8 +130,7 @@ int lis(int sequence[], int size){
 
 
 **** Longest common subsequence (LCS)
-
-
+     
 **** Knapsack problem
 
 ***** Definizione del problema 
@@ -232,6 +231,22 @@ for(int i = 1; i < oSize; ++i)
   }
       #+END_SRC
 
+
+*** Esercizi
+
+**** lcs-limit
+     Lcs ma la sequenza comune deve essere al massimo di lunghezza k.
+
+***** Equazione di ricorrenza
+      Uso una matrice di supporto L.
+      L[i,j] contiene la lunghezza della più lunga lcs minore di k che posso ottenere fino a i,j.
+      
+      caso base:
+      L[i,0] o L[0,j] = 0 
+
+      caso ricorsivo:
+      L[i,j] = 1 + Max(L[a,b]) dove 1 \leq a \leq i-1, 1 \leq b \leq j-1 se X[i] = Y[j] AND X[a] + Y[b] <= K
+      L[i,j] = Max(L[i-i,j] , L[i,j-1])
 
 ** Programmazione greedy
 

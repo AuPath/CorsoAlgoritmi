@@ -1,4 +1,4 @@
-% Created 2019-11-02 sab 19:26
+% Created 2019-11-05 mar 09:47
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -31,13 +31,13 @@
 
 
 \section{ALGORITMI}
-\label{sec:org46a9a9f}
+\label{sec:org1847582}
 
 \subsection{Programmazione dinamica}
-\label{sec:org9ffb2d3}
+\label{sec:org948ab4a}
 
 \subsubsection{Introduzione}
-\label{sec:orgd3ed79b}
+\label{sec:orgd2ad62e}
 
 L' idea è quella di non dover ripetere calcoli già fatti in precedenza, cosa che succede per 
 molto di frequente in un albero di chiamate ricorsive.
@@ -50,7 +50,7 @@ del problema originale.
 
 
 \subsubsection{Approccio al problema}
-\label{sec:org192d00a}
+\label{sec:org086f37a}
 
 Cominciare definendo l' istanza del problema e la soluzione del problema in maniera formale.
 Può essere utile, ma non è obbligatorio, definire l' equazione di ricorrenza del problema.
@@ -64,44 +64,45 @@ posizione della struttura di supporto. Molto importante è definire se la soluzi
 
 
 \subsubsection{Algoritmi visti in classe}
-\label{sec:org53577fd}
+\label{sec:org7ccef44}
 
 \paragraph{Longest increasing subsequence (LIS)}
-\label{sec:orgdd80f07}
+\label{sec:org25a4380}
 
 \subparagraph{Definizione del problema}
-\label{sec:org49673c8}
+\label{sec:org11ea320}
 
 Avendo una sequenza \textbf{X} di lunghezza \textbf{n} con indice \textbf{I} = \{1,\ldots{},n\}, \newline
 una sottosequenza \textbf{Z} di \textbf{X} viene ritenuta valida se gli indici degli elementi
-di \textbf{X} che la compongono rispettano un ordine strettamente crescente.
+di \textbf{X} che la compongono rispettano un ordine strettamente crescente. \newline
 
-Esempio: \\
-\textbf{X} = < a, b, c, d >  \textbf{Z} = < a, c , d > è valida \\
-\textbf{X} = < a, b, c, d >  \textbf{Z} = < d, a, b, c > non è valida \\
+Esempio:
+\textbf{X} = < a, b, c, d >  \textbf{Z} = < a, c , d > è valida \newline
+\textbf{X} = < a, b, c, d >  \textbf{Z} = < d, a, b, c > non è valida \newline
 
-Vogliamo trovare la più lunga sottosequenza dove ogni elemento è maggiore del precedente (LIS).\\
-L' algoritmo visto in classe si limita a trovare la lunghezza della LIS. \\
+Vogliamo trovare la più lunga sottosequenza dove ogni elemento è maggiore del precedente (LIS).\newline
+L' algoritmo visto in classe si limita a trovare la lunghezza della LIS. \newline
 
-Istanza del problema: \\
-Una sequenza \textbf{X} di elementi, la lunghezza di \textbf{X} è \textbf{n} \\
+Istanza del problema: \newline
+Una sequenza \textbf{X} di elementi, la lunghezza di \textbf{X} è \textbf{n}
 
-Soluzione del problema: \\
+Soluzione del problema: \newline
 \begin{itemize}
-\item Se voglio la LIS: \\
+\item Se voglio la LIS: \newline 
 Una permutazione di \textbf{Z} di \textbf{X} tale che:
 \begin{enumerate}
 \item Tra tutte le permutazioni possibili di \textbf{X} (insieme delle parti) \textbf{Z} risulta la sottosequenza (deve rispettare le proprietà di una sottosequenza) quello con lunghezza (cardinalità) massima.
 \item Gli elementi della sottosequenza "ottima" \textbf{Z} devono essere ordinati in senso strettamente crescente.
 \end{enumerate}
 
-\item Se voglio la lunghezza della LIS: \\
+\item Se voglio la lunghezza della LIS: \newline
 La lunghezza l \(\in\) \textbf{N} della sottosequenza \textbf{Z} definita sopra.
 \end{itemize}
 
 
+
 \subparagraph{Pseudocodice con spiegazione}
-\label{sec:orgc0df957}
+\label{sec:orgfaf9003}
 
 Come struttura di supporto viene utilizzato un array \textbf{L} di dimensione uguale alla
 lunghezza \textbf{n} della sequenza \textbf{S}.
@@ -110,9 +111,9 @@ carattere \textbf{i} della sequenza \textbf{S} con S[i] compreso.
 
 Genericamente L[i] può avere valore:
 \begin{itemize}
-\item L[i] = 1 se i = 1\\
+\item L[i] = 1 se i = 1\newline
 cioè al primo elemento della sequenza la lunghezza massima possibile è 1.
-\item L[i] = 1 + MAX\{L[i]\} se 1 \(\le\) j \(\le\) i-1 AND S[j] < S[i] \\
+\item L[i] = 1 + MAX\{L[i]\} se 1 \(\le\) j \(\le\) i-1 AND S[j] < S[i] \newline
 cioè se l'elemento \textbf{i} di \textbf{S} risulta maggiore dei precedenti il valore in \textbf{L} alla posizione \textbf{i}
 è uguale al valore massimo precedentemente trovato + 1, appunto perchè è stato possibile aggiungere
 un nuovo elemento alla LIS fino a \textbf{i}.
@@ -130,62 +131,160 @@ LIS massima trovata fino ad ora, se è maggiore aggiorno il valore massimo.
 
 Soluzione vista a lezione:
 \begin{verbatim}
-int LIS (S[1,...,n])
-L[1] = 1;
-max_tot = 1;
-for i = 2 to n
-  max = 0;
-  for j = 1 to i-1
-  if S[j] < S[i] AND L[j] > max
-    max = L[J]
-  L[i] = 1 + max;
-  if L[i] > max_tot
-    max_tot = L[i]
-
-return max_tot
+ 1  int LIS (S[1,...,n])
+ 2  L[1] = 1;
+ 3  max_tot = 1;
+ 4  for i = 2 to n
+ 5    max = 0;
+ 6    for j = 1 to i-1
+ 7    if S[j] < S[i] AND L[j] > max
+ 8      max = L[J]
+ 9    L[i] = 1 + max;
+10    if L[i] > max_tot
+11      max_tot = L[i]
+12  
+13  return max_tot
 \end{verbatim}
 
 
 \subparagraph{Implementazione C++}
-\label{sec:org8692809}
+\label{sec:org3ee0ab0}
 
 \begin{verbatim}
-int lis(int sequence[], int size){
-
-  // support array, at pos i will hold longest lis including i
-  int l[size]; 
-  int max_length = 1;
-  l[0] = 1;
-
-  for(int i = 1; i < size; ++i)
-    {
-      int max = 0;
-      for(int j = 0; j <= i-1; ++j)
-	if(sequence[i] > sequence[j] && l[j] > max)
-	  max = l[j];
-
-      l[i] = 1 + max;
-      if(l[i] > max_length)
-	max_length = l[i];
-    }
-
-  return max_length;
-}
+ 1  int lis(int sequence[], int size){
+ 2    // support array, at pos i will hold longest lis including i
+ 3    int l[size]; 
+ 4    int max_length = 1;
+ 5    l[0] = 1;
+ 6  
+ 7    for(int i = 1; i < size; ++i)
+ 8      {
+ 9        int max = 0;
+10        for(int j = 0; j <= i-1; ++j)
+11  	if(sequence[i] > sequence[j] && l[j] > max)
+12  	  max = l[j];
+13  
+14        l[i] = 1 + max;
+15        if(l[i] > max_length)
+16  	max_length = l[i];
+17      }
+18  
+19    return max_length;
+20  }
 \end{verbatim}
 
 
 \paragraph{Longest common subsequence (LCS)}
-\label{sec:org1ff23b5}
+\label{sec:org9fe2f4b}
 
 
 \paragraph{Knapsack problem}
-\label{sec:org5c06891}
+\label{sec:org50233b5}
 
 \subparagraph{Definizione del problema}
-\label{sec:org5974641}
-Abbiamo un knapsack (zaino) con una capacità \textbf{L} \(\in\) \textbf{N} \\
+\label{sec:orgafbb1ca}
+
+Abbiamo un knapsack (zaino) con una capacità \textbf{L} \(\in\) \textbf{N}.
+Abbiamo un insieme di oggetti \textbf{O} di lunghezza \textbf{n} \(\in\) \textbf{N}.
+Ad ogni oggetto è associato un Valore  v\(_{\text{i}}\) \(\in\) \textbf{V} la cui lunghezza è \textbf{n}.
+Ad ogni oggetto è associato un Peso w\(_{\text{i}}\) \(\in\) \textbf{W} la cui lunghezza è \textbf{n}.
+Definisco una funzione valore(X) \{1,\ldots{},n\} \(\rightarrow\) N che mi restituisce il valore totale di un insieme.
+La soluzione \textbf{S} \(\subseteq\) \textbf{O} con \(\sum\) w\(_{\text{i}}\) con 1 \(\le\) i \(\le\) L tale che valore(\textbf{S}) = MAX(valore(\(\wp\)(O)))    
+
+L'algoritmo visto in classe ritorna il valore massimo ottenibile.
+
+
+
+\subparagraph{Pseudocodice e spiegazione}
+\label{sec:org653c74a}
+
+Come struttura di supporto viene utilizzata una matrice di dimensione \textbf{n+1} x \textbf{L+1}.
+Viene aggiunto 1 perchè rappresenteremo anche l'oggetto e la capacità 0.
+
+Su ogni colonna mettiamo tutti i numeri da 0 a \textbf{L}.
+Su ogni riga tutti i numeri da 0 a \textbf{n}.
+Alla posizione [i][j] troviamo il massimo valore ottenibile prendendo i oggetti avendo capacità j.
+
+I passi dell'algoritmo:
+\begin{enumerate}
+\item Inizializzo la matrice iniziale
+\item Se la capacità che sto considerando (j) è minore del peso dell'oggetto significa
+che non posso prendere l'oggetto i. Il valore [i][j] sarà allora il massimo valore che posso ottenere
+con la stessa capacità j ma con un oggetto in meno (i-1).
+\item Se la capacità è invece maggiore devo considerare se ci "guadagno" a prendere il nuovo oggetto.
+Controllo il valore massimo ottenibile senza prendere l'oggetto e lo confronto con il valore ottenuto
+aggiungendo il nuovo oggetto.
+\item Ritorno il valore massimo ottenibile.
+\end{enumerate}
+
+
+\begin{verbatim}
+ 1   for i=0 to n
+ 2     OPT[i][0] = 0
+ 3   for j=0 to L
+ 4     OPT[0][j] = 0
+ 5  
+ 6   for i=1 to n
+ 7     for j = 1 to L
+ 8       if j < W[i]
+ 9         OPT[i][j] = OPT[i-1][j]
+10       else if OPT[i-1][j] > ( OPT[i-1][j - W[i]] + V[i] )
+11         OPT[i][j] = OPT[i-1][j]
+12       else
+13         OPT[i][j] = OPT[i-1][j - W[i] + V[i]
+14  
+15  return OPT[n][L]
+\end{verbatim}
+
+
+\subparagraph{Implementazione C++}
+\label{sec:orgbe31195}
+
+\begin{verbatim}
+ 1  int knapsack(int sackCapacity, char objects[], int oSize,
+ 2  int values[], int vSize, int weigth[], int wSize){
+ 3  
+ 4  assert(oSize == vSize);
+ 5  assert(vSize == wSize);
+ 6  assert(sackCapacity >= 0);
+ 7  
+ 8  // add 0 value in matrix
+ 9  oSize = oSize + 1;
+10  sackCapacity = sackCapacity + 1;
+11  int matrix[oSize][sackCapacity];
+12  
+13  // initialize matrix
+14  for(int i = 0; i < oSize; ++i)
+15     matrix[i][0] = 0;
+16  for(int i = 0; i < sackCapacity; ++i)
+17     matrix[0][i] = 0;
+18  
+19  // access to values and weight has to be offset by -1 because we added a
+20  // 0 row and column to the matrix
+21  
+22  for(int i = 1; i < oSize; ++i)
+23    for(int j = 1; j < sackCapacity; ++j)
+24      if(j < weigth[i-1])
+25        matrix[i][j] = matrix[i-1][j];
+26      else if (matrix[i-1][j] > (matrix[i-1][j - weigth[i-1]]) + values[i-1])
+27        matrix[i][j] = matrix[i-1][j];
+28      else
+29        matrix[i][j] = matrix[i-1][j - weigth[i-1]] + values[i-1];
+30  
+31      std::cout << "value matrix:" << std::endl;
+32      for(int i = 0; i < oSize; ++i)
+33        {
+34  	for(int j = 0; j < sackCapacity; ++j)
+35  	  std::cout << matrix[i][j] << " ";
+36  	std::cout << std::endl;	
+37        }
+38  
+39      return matrix[oSize-1][sackCapacity-1];
+40  
+41    }
+\end{verbatim}
 
 
 \subsection{Programmazione greedy}
-\label{sec:orge09fda3}
+\label{sec:orgf546894}
 \end{document}

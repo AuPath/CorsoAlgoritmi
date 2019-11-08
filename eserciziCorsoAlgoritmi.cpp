@@ -138,4 +138,44 @@ namespace esercizi {
    
   }
 
-}
+  int lcs_limit(int seq1[], int size1, int seq2[], int size2, unsigned int limit){
+
+    const int rows = size1+1;
+    const int columns = size2+1;
+
+    int sup_length[rows][columns];
+    int sup_sum[rows][columns];
+
+    //initialize
+    for(int i = 0; i < rows; ++i)
+      for(int j = 0; j < columns; ++j)
+	{
+	  sup_sum[i][j] = 0;
+	  if(i == 0 || j == 0)
+	    sup_length[i][j] = 0;
+	}
+
+    for(int i = 1; i < rows; ++i)
+      for(int j = 1; j < columns; ++j)
+	if(seq1[i-1] != seq2[j-1]){
+	  sup_length[i][j] = std::max(sup_length[i-1][j], sup_length[i][j-1]);
+	  sup_sum[i][j] = std::max(sup_sum[i-1][j],sup_sum[i][j-1]);
+	}
+
+	else{
+
+	  if((sup_sum[i][j] + seq1[i]) <= limit){
+	    sup_length[i][j] = 1 + sup_length[i-1][j-1];
+	    sup_sum[i][j] = seq1[i] + sup_sum[i-1][j-1];
+          }
+
+          else {
+            sup_length[i][j] = std::max(sup_length[i - 1][j], sup_length[i][j - 1]);            sup_sum[i][j] = std::max(sup_sum[i - 1][j], sup_sum[i][j - 1]);
+          }
+        }
+
+    return sup_length[rows-1][columns-1];
+  }
+
+ 
+  }

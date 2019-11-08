@@ -16,6 +16,8 @@ namespace esercizi{
 
   // LCS between 3 sequences
   int lcs_3(int seq1[], int size1, int seq2[], int size2, int seq3[], int size3);
+
+  int lcs_limit(int seq1[], int size1, int seq2[], int size2, unsigned int limit);
 }
 #endif
   

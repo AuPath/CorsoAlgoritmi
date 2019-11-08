@@ -20,13 +20,9 @@ int main()
   { 1,
     2,
     3,
-    4 };
+    7};
 
-  int seq3[s3] =
-  { 1,
-    2 };
-
-  std::cout << "lcs-3: " << esercizi::lcs_3(seq1, s1, seq2, s2, seq3, s3);
+  std::cout << "lcs_limit: " << esercizi::lcs_limit(seq1, s1, seq2, s2, 6);
 
   return 0;
 }
