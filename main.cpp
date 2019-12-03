@@ -2,27 +2,19 @@
 #include <iostream>
 #include "corsoAlgoritmi.h"
 #include "eserciziCorsoAlgoritmi.h"
+#include "graph.h"
+#include "my_list.h"
 #include <iostream>
+#include <list>
 #include <string>
 
 int main()
 {
-  const int s1 = 3;
-  const int s2 = 4;
-  const int s3 = 2;
+  my_list<int> list;
+  list.add(4);
+  list.add(3);
 
-  int seq1[s1] =
-  { 1,
-    2,
-    3 };
-
-  int seq2[s2] =
-  { 1,
-    2,
-    3,
-    7};
-
-  std::cout << "lcs_limit: " << esercizi::lcs_limit(seq1, s1, seq2, s2, 6);
+  std::cout << list << std::endl;
 
   return 0;
 }

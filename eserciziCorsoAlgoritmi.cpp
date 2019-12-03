@@ -1,3 +1,4 @@
+
 #include "eserciziCorsoAlgoritmi.h"
 #include <iostream>
 #include <string>
@@ -142,40 +143,34 @@ namespace esercizi {
 
     const int rows = size1+1;
     const int columns = size2+1;
-
-    int sup_length[rows][columns];
-    int sup_sum[rows][columns];
+    const int sum = limit + 1;
+    int sup_length[rows][columns][sum];
 
     //initialize
     for(int i = 0; i < rows; ++i)
       for(int j = 0; j < columns; ++j)
-	{
-	  sup_sum[i][j] = 0;
+	for(int k = 0; k < sum; ++k){
 	  if(i == 0 || j == 0)
-	    sup_length[i][j] = 0;
+	    sup_length[i][j][k] = 0;
+	  if(seq1[i-1] > k)
+	    sup_length[i][j][k] = INT32_MIN;
 	}
+	  
 
     for(int i = 1; i < rows; ++i)
       for(int j = 1; j < columns; ++j)
-	if(seq1[i-1] != seq2[j-1]){
-	  sup_length[i][j] = std::max(sup_length[i-1][j], sup_length[i][j-1]);
-	  sup_sum[i][j] = std::max(sup_sum[i-1][j],sup_sum[i][j-1]);
-	}
+	for(int k = 0; k < sum; ++k)
+	  if(seq1[i-1] == seq2[j-1]){
+	     sup_length[i][j][k] = 1 + sup_length[i][j][k-seq1[i-1]];
+	     std::cout << seq1[i-1] << std::endl;
+	     
+	  }
+	   
+	  else
+	    sup_length[i][j][k] = std::max(sup_length[i-1][j][k], sup_length[i][j-1][k]);
 
-	else{
-
-	  if((sup_sum[i][j] + seq1[i]) <= limit){
-	    sup_length[i][j] = 1 + sup_length[i-1][j-1];
-	    sup_sum[i][j] = seq1[i] + sup_sum[i-1][j-1];
-          }
-
-          else {
-            sup_length[i][j] = std::max(sup_length[i - 1][j], sup_length[i][j - 1]);            sup_sum[i][j] = std::max(sup_sum[i - 1][j], sup_sum[i][j - 1]);
-          }
-        }
-
-    return sup_length[rows-1][columns-1];
+    return sup_length[rows-1][columns-1][sum-1];
   }
-
+}
  
-  }
+  
