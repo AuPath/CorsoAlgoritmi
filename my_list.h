@@ -1,12 +1,13 @@
 #ifndef myList_H
 #define myList_H
 
-// T type of value, E defines equality
+
 #include <cstddef>
 #include <iterator>
 #include <ostream>
 #include <type_traits>
 
+// T type of value, E defines equality
 template <typename T> class my_list {
   struct node{
     T value;
@@ -17,13 +18,30 @@ template <typename T> class my_list {
     node(const node& other) : value(other.value), next(nullptr) {}
     node(const T& v, node* n) : value(v), next(n) {}
     node(const T& v) : value(v), next(nullptr) {}
-  };  
-  private:
+  };
+  
+private:
   node* _head;
   unsigned int _size;
-  public:
+  
+public:
   my_list() : _head(nullptr), _size(0) {}
-  my_list(const my_list& other) {}
+
+  my_list(const T& value) : _head(nullptr), _size(0){
+    _head = new node(value);
+    ++_size;
+  }
+
+  my_list(const my_list& other) : _head(nullptr), _size(0) {
+    node* curr = other._head;
+
+    while(curr != nullptr)
+      {
+	add(curr->value);
+	curr = curr->next;
+      }
+  }
+
   ~my_list() { clear(); }
 
   my_list& operator=(const my_list& rhs)  {
@@ -86,7 +104,7 @@ template <typename T> class my_list {
       _n = rhs._n;
       return *this;
     }
-    ~const_iterator();
+    ~const_iterator() {};
 
     reference operator*() const {
       return _n->value;

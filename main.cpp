@@ -10,12 +10,10 @@
 
 int main()
 {
-  my_list<int> list;
-  list.add(4);
-  list.add(3);
-
-  std::cout << list << std::endl;
-
+  my_list<int> l(3);
+  l.add(2);
+  std::cout << l << std::endl;
+  
   return 0;
 }
 
