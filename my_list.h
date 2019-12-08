@@ -1,8 +1,8 @@
 #ifndef myList_H
 #define myList_H
 
-
 #include <cstddef>
+#include <iostream>
 #include <iterator>
 #include <ostream>
 #include <type_traits>
@@ -22,17 +22,19 @@ template <typename T> class my_list {
   
 private:
   node* _head;
+  node* _tail;
   unsigned int _size;
   
 public:
-  my_list() : _head(nullptr), _size(0) {}
+  my_list() : _head(nullptr), _tail(nullptr), _size(0) {}
 
   my_list(const T& value) : _head(nullptr), _size(0){
     _head = new node(value);
+    _tail = _head;
     ++_size;
   }
 
-  my_list(const my_list& other) : _head(nullptr), _size(0) {
+  my_list(const my_list& other) : _head(nullptr), _tail(nullptr), _size(0) {
     node* curr = other._head;
 
     while(curr != nullptr)
@@ -43,12 +45,13 @@ public:
   }
 
   ~my_list() { clear(); }
-
+  
   my_list& operator=(const my_list& rhs)  {
-    if(this != rhs)
+    if(this != &rhs)
       {
 	my_list tmp(rhs);
 	std::swap(_head,tmp._head);
+	std::swap(_tail,tmp._tail);
 	std::swap(_size,tmp._size);
       }
     return *this;
@@ -62,10 +65,14 @@ public:
     node* tmp = new node(value);
 
     if(_head == nullptr)
-      _head = tmp;
+      {
+	_head = tmp;
+	_tail = tmp;
+      }
+      
     else {
-      tmp->next = _head;
-      _head = tmp;
+      _tail->next = tmp;
+      _tail = tmp;
 	}
 
     ++_size;
@@ -83,6 +90,7 @@ public:
       }
 
     _head = nullptr;
+    _tail = nullptr;
     _size = 0;
   }
 
