@@ -3,5 +3,12 @@ compiler:
  - gcc
  - clang
 dist: bionic
+addons:
+  sonarcloud:
+    organization: "aupath"	
+    token:
+      secure: $SONAR_TOKEN
 script:
  - make
+ - sonar-scanner
+ 
