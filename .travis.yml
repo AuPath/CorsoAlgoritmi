@@ -3,7 +3,5 @@ compiler:
  - gcc
  - clang
 dist: trusty
-os:
- -linux
 script:
  - make
