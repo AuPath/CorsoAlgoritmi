@@ -1,7 +1,7 @@
 #ifndef vertex_H
 #define vertex_H
 
-#include "graph.h"
+
 #include "my_list.h"
 #include <iostream>
 #include <type_traits>

@@ -1,0 +1,58 @@
+#+STARTUP: entitiespretty
+#+OPTIONS: toc:nil
+
++ Grafo non orientato \newline
+  Un grafo non orientato è un grafo G = (V,E) dove E consiste in coppie non ordinate
+  di vertici {u,v} dove u,v \in V e u \ne v. Dalla definizione risulta che non sono possibili cappi.
+  
+  - Grafo non orientato connesso \newline
+    Un grafo non orientato G = (V,E) viene definito connesso se \forall(u,v) dove u,v \in V
+    esiste un cammino che collega il vertice u al vertice v.
+    Un grafo non orientato è anche detto connesso se è composto da una singola componente connessa.
+
+  - Componente connessa \newline
+    Le componenti connesse di un grafo G = (V,E) sono le classi di equivalenza sull' insieme V
+    sotto la relazione "raggiungibile da".
+    
+    - Classe di equivalenza \newline
+      Data una relazione di equivalenza R su un insieme S, la classe di equivalenza di un elemento x \in S è definita come:
+      [x] = { y | (x,y) \in R }
+
+    - Relazione di equivalenza \newline
+      R è una relazione di equivalenza su un insieme S sse R è una relazione binaria su S,
+      R deve godere delle proprietà di riflessività, simmetria e transitività.    
+
++ Grafo orientato \newline
+  Un grafo orientato G è composto da una coppia (V,E) dove V è l'insieme finito di vertici
+  ed E una relazione binaria su V. E è l'insieme degli archi del grafo.
+  Sono possibili cappi.
+
+  - Relazione binaria \newline
+    Una relazione binaria R tra due insiemi S e T è un insieme di coppie ordinate
+    (x,y) con x \in S, y \in T dove R è un sottoinsieme del prodotto cartesiano SxT.
+
+  - Grafo orientato fortemente connesso \newline
+    Un grafo orientato è detto fortemente connesso se \forall(u,v) u,v \in V u è connesso a v da un cammino e viceversa.
+    Un grafo orientato è fortemente connesso se è composto da una singola componente fortemente connesa.
+
+  - Componente fortemente connessa \newline
+    Le componenti connesse di un grafo orientato sono le classi di equivalenza sull insieme
+    dei vertici V sotto la relazione di "vertici mutualmente raggiungibili".
+    Se ho (u,v) \in V intendo che u deve essere raggiungibile da v e viceversa.
+
++ Grafo completo \newline
+  Se in un grafo G = (V,E) \forall(u,v) dove u,v \in V esiste un arco (u,v) \in E
+    
++ Cammino \newline
+  Un cammino di lunghezza k da un vertice u ad un vertice v in un G = (V,E) è una
+  sequenza di vertici (v_{0},v_{1}, ... , v_{k}) dove u = v_{0} e v = v_{k} e (v_{i-1},v_{i}) \in E per i = 1,...,k.
+  La lunghezza del cammino è il numero di archi nel cammino.
+
++ Distanza tra vertici \newline
+  La distanza tra due vertici è la lunghezza di uno dei cammini più brevi che connettono i due vertici.
+
++ Foresta \newline
+  Una foresta è un grafo non orientato aciclico.
+
++ Albero non radicato \newline
+  Un albero non radicato è un grafo orientato, connesso e aciclico.

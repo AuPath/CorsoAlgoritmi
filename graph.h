@@ -36,11 +36,11 @@ public:
     return _size;
   }
 
-  friend std::ostream& operator<<(std::ostream& os, const my_graph<T>& g)
-  {
+  friend std::ostream& operator<<(std::ostream& os, const my_graph<T>& g) {
     os << g._vertices;
     return os;
   }
+
   
 };
 

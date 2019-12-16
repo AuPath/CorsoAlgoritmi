@@ -42,3 +42,6 @@
 
 # Org mode
 *.tex
+
+# Book
+Intro_to_algo.pdf
