@@ -20,7 +20,7 @@ public:
   ~my_graph() { _vertices.clear(); }
   my_graph(const my_graph<T>& other) : _vertices(other._vertices), _size(other._size) {}
 
-  my_graph(const my_list<vertex<T>>& vertices) : _vertices(vertices), _size(vertices.size()) {}
+  explicit my_graph(const my_list<vertex<T>>& vertices) : _vertices(vertices), _size(vertices.size()) {}
 
   my_graph<T>& operator=(const my_graph<T>& rhs){
     if(this != &rhs)

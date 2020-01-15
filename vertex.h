@@ -18,7 +18,7 @@ public:
 
   vertex(const vertex<T>& other) : _value(other._value), _adj_list(other._adj_list) {}
 
-  vertex(const T& value) : _value(value) {}
+  explicit vertex(const T& value) : _value(value) {}
 
   vertex(const T& value, const my_list<vertex<T>>& adj) : _value(value), _adj_list(adj) {}
 

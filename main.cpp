@@ -7,13 +7,14 @@
 #include <iostream>
 #include <list>
 #include <string>
+#include <vector>
 
 int main()
 {
   my_list<int> li;
   li.add(1);
   li.add(2);
-
+  
   vertex<int> v1(1),v2(2),v3(3);
   my_list<vertex<int>> v_adj;
   v_adj.add(v2);
@@ -28,10 +29,9 @@ int main()
   g_vertices.add(v4);
   
   my_graph<int> g(g_vertices);
-  
-
-  std::cout << g;
 
   return 0;
 }
+
+
 

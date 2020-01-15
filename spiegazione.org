@@ -248,9 +248,72 @@ for(int i = 1; i < oSize; ++i)
       L[i,j] = 1 + Max(L[a,b]) dove 1 \leq a \leq i-1, 1 \leq b \leq j-1 se X[i] = Y[j] AND X[a] + Y[b] <= K
       L[i,j] = Max(L[i-i,j] , L[i,j-1])
 
+
 ** Programmazione greedy
 
+** Strutture dati per insiemi disgiunti
+   Una struttura dati per insiemi disgiunti mantiente una collezione di insiemi disgiunti 
+   dinamici, dove per dimanici si intende che si possono aggiungere membri ad ogni insieme.
+   Ogni insieme è identificato da un *rappresentante*. Il criterio con cui viene scelto un rappresentate
+   dipende dalla particolare applicazione.
+
+*** Operazioni necessarie
+    - make-set(x)
+      Crea un nuovo set il cui unico membro è l'input x. Essendo l'unico membro
+      x è anche il rappresentante. Dato che gli insiemi sono definiti disgiunti
+      x non può essere membro di un altro insieme.
+
+    - union(x,y)
+      Unisce i due insiemi che contengono x ed y, rispettivamente S_x e S_y in un nuovo insieme.
+      I due insiemi sono supposti disgiunti. Il rappresentante del nuovo insieme sarà per
+      forza un membro o di  S_x o di S_y, a seconda dell'implementazione si usa proprio uno dei
+      due rappresentanti dei due insiemi.
+      Da un insieme di N elementi si potranno avere al massimo N-1 union prima di avere un solo insieme.
+
+    - find-set(x)
+      Ritorna il rappresentante dell' insieme che contiene x.
+
+*** Implementazione tramite liste
+    Ogni insieme è rappresentato da una lista, l'oggetto insieme ha un puntatore *head*
+    al primo elemento della lista e un puntatore *tail* all ultimo elemento della lista.
+    Ogni oggetto membro dell'insieme ha un puntatore *next* al prossimo elemento della lista
+    e un *puntatore* all' oggetto insieme (in pratica il rappresentante è *head*).
+
+    make-set e find-set hanno tempo \Omicron(1).
+    
+    Per union(x,y) colleghiamo in coda y ad x. Il rappresentate del nuovo insieme
+    è il rappresentante di S_x. Dobbiamo però aggiornare il puntatore all oggetto insieme
+    per tutti gli elementi di S_y, questo richiede tempo lineare in lunghezza di S_y.
+    Si arriva alla conclusione che se ho N elementi per creare un grafo devo fare
+    N volte la make-set e N-1 volte la union. Gli oggetti aggiornati in totale da tutte
+    le N-1 union sono N-1. Ottengo quindi un tempo \Omicron(n^2).
+
+**** Euristica dell' unione pesata   
+     Se per ogni lista manteniamo la lunghezza riusciamo ad evitare il caso peggiore
+     dove uniamo in coda una lista molto lunga ad una lista più corta.
+     Il tempo T(n,m) = \Omicron(m + logn).
+     m è il numero di make-set + find-set + union.
 
 
+*** Implementazione tramite foreste
+    Ogni insieme è rappresentato da un albero radicato.
+    La radice di ogni albero è il rappresentante di quell insieme.
+    Ogni membro di un insieme punta solo al proprio parent.
 
+    - make-set(x)
+      Crea un albero radicato con un solo nodo.
 
+    - find-set(x)
+      Ritorna la radice dell' albero che contiene x risalendo via parent.
+
+    - union(x,y)
+      Imposta come parent della root di S_y la root di S_x.
+**** Euristiche
+     - Union by rank
+       Simile alla soluzione per le liste, invece che la lunghezza si utilizza il 
+       rank di ogni nodo. Si collega la root con rank minore alla root con rank maggiore.
+     - Compressione dei cammini
+       Usata durante la find-set, si fa puntare il nodo x direttamente alla root.
+
+      
+      

@@ -14,10 +14,10 @@ template <typename T> class my_list {
     node* next;
 
     node() : next(nullptr) {}
-    ~node() { next = nullptr; }
-    node(const node& other) : value(other.value), next(nullptr) {}
+    // ~node() { next = nullptr; }
+    explicit node(const node& other) : value(other.value), next(nullptr) {}
     node(const T& v, node* n) : value(v), next(n) {}
-    node(const T& v) : value(v), next(nullptr) {}
+    explicit node(const T& v) : value(v), next(nullptr) {}
   };
   
 private:
@@ -28,7 +28,7 @@ private:
 public:
   my_list() : _head(nullptr), _tail(nullptr), _size(0) {}
 
-  my_list(const T& value) : _head(nullptr), _size(0){
+  explicit my_list(const T& value) : _head(nullptr), _size(0){
     _head = new node(value);
     _tail = _head;
     ++_size;
@@ -140,7 +140,7 @@ public:
 
     private:
     friend class my_list;
-    const_iterator(const node* n) : _n(n) {}
+    explicit const_iterator(const node* n) : _n(n) {}
     
   };
 

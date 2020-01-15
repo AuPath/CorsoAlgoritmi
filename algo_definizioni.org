@@ -1,7 +1,9 @@
 #+STARTUP: entitiespretty
 #+OPTIONS: toc:nil
 
-+ Grafo non orientato \newline
+* Grafi
+
+- Grafo non orientato \newline
   Un grafo non orientato è un grafo G = (V,E) dove E consiste in coppie non ordinate
   di vertici {u,v} dove u,v \in V e u \ne v. Dalla definizione risulta che non sono possibili cappi.
   
@@ -22,7 +24,7 @@
       R è una relazione di equivalenza su un insieme S sse R è una relazione binaria su S,
       R deve godere delle proprietà di riflessività, simmetria e transitività.    
 
-+ Grafo orientato \newline
+- Grafo orientato \newline
   Un grafo orientato G è composto da una coppia (V,E) dove V è l'insieme finito di vertici
   ed E una relazione binaria su V. E è l'insieme degli archi del grafo.
   Sono possibili cappi.
@@ -40,19 +42,39 @@
     dei vertici V sotto la relazione di "vertici mutualmente raggiungibili".
     Se ho (u,v) \in V intendo che u deve essere raggiungibile da v e viceversa.
 
-+ Grafo completo \newline
-  Se in un grafo G = (V,E) \forall(u,v) dove u,v \in V esiste un arco (u,v) \in E
-    
-+ Cammino \newline
+- Grafo completo \newline
+  Se in un grafo G = (V,E) \forall(u,v) dove u,v \in V esiste un arco (u,v) \in E.
+  Un grafo è completo se ha V(V-1)/2 archi.
+  
+- Cammino \newline
   Un cammino di lunghezza k da un vertice u ad un vertice v in un G = (V,E) è una
   sequenza di vertici (v_{0},v_{1}, ... , v_{k}) dove u = v_{0} e v = v_{k} e (v_{i-1},v_{i}) \in E per i = 1,...,k.
   La lunghezza del cammino è il numero di archi nel cammino.
 
-+ Distanza tra vertici \newline
+- Distanza tra vertici \newline
   La distanza tra due vertici è la lunghezza di uno dei cammini più brevi che connettono i due vertici.
 
-+ Foresta \newline
+- Foresta \newline
   Una foresta è un grafo non orientato aciclico.
 
-+ Albero non radicato \newline
+- Albero non radicato \newline
   Un albero non radicato è un grafo orientato, connesso e aciclico.
+  Equivalentemente un albero è un grafo non orientato connesso con N nodi e N-1 archi.
+
+- Albero di copertura
+  Sia G=(V,E) un grafo non orientato e connesso, un albero di copertura di G è un grafo
+  GC = (V,T) aciclico dove T \sube E.
+
+- Albero di copertura minimo
+  Un albero di copertura minimo (MST) di G è un albero di copertura (V,T) di G tale che:
+  w(T) = min{w(A) | A \sube E \land (V,A) albero di copertura di G}
+  
+* Programmazione Greedy
+  
+  - Matroide
+    Un matroide è una coppia ordinate M = (E, F) dove:
+    1. E è un insieme finito.
+    2. F è una famiglia (non vuota) di sottoinsiemi di E chiamati sottoinsiemi indipendenti di E.
+       Deve valere che se B \in F e A \sube B allora A \in F.
+    3. Se A,B \in F e |A| < |B| allora \exist x \in B-A tale per cui A \cup {x} \in F.
+    
